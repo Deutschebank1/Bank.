@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 59vh;
+            margin: 0;
+          
+        
+    background-image: url('money.jpg'); /* Assuming 'money.jpg' is in the same directory as your CSS file */
+     /* Cover ensures the image covers the entire background */
+    background-position: flex; /* Center the image horizontally and vertically */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+background-size: 100 100;
+background-color: rgba(255, 255, 255, 0.5); /* White color with 50% opacity */
+
+    
+        }
+
+        .animation-container {
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+            width: 80%;
+            height: 200px; /* Increased height to accommodate message */
+            margin-top: 50px; /* Added margin to position message */
+        }
+
+        .temperature-message {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #4682b4;
+            font-size: 1.2em;
+        }
+
+        .money {
+            font-size: 50px;
+            position: absolute;
+            top: 0;
+            animation: moveMoney 2s linear infinite;
+        }
+
+        .money.left {
+            left: 0;
+            animation-name: moveMoneyLeft;
+        }
+
+        .money.right {
+            right: 0;
+            animation-name: moveMoneyRight;
+        }
+
+        .account {
+            font-size: 100px;
+            position: absolute;
+            top: 59%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .message {
+            position: absolute;
+            top: 160px; /* Adjusted position to align message at the top */
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            width: 96%;
+     font-weight: bold;
+    font-size: 20px;  
+    border: 2px solid #0003dd;  
+    height: 140px; 
+    border-radius: 15px;  
+   font-family: 'Poppins', sans-serif;
+  background-color: #1c15ff;
+  color: #ffffff;
+        }
+
+        .message h1 {
+            color: #040407f1;
+            font-size: 1em;
+            margin-top: 70px;
+        font-family: 'Poppins',sans-serif;
+            }
+
+        .message p {
+            color: #4682b4;
+            font-size: 1.2em;
+            margin: ;
+          margin-top: 13px;
+                  }
+
+        @keyframes moveMoneyLeft {
+            0% {
+                left: -10%;
+                top: 20%;
+                opacity: 1;
+            }
+            90% {
+                left: 50%;
+                top: 59%;
+                opacity: 1;
+            }
+            100% {
+                left: 50%;
+                top: 59%;
+                opacity: 0;
+            }
+        }
+
+        @keyframes moveMoneyRight {
+            0% {
+                right: -10%;
+                top: 20%;
+                opacity: 1;
+            }
+            90% {
+                right: 50%;
+                top: 59%;
+                opacity: 1;
+            }
+            100% {
+                right: 50%;
+                top: 59%;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-container">
+        
+</div>
+<div class="message" id="main-name">
+    <h1>¡Hola [Nombre del destinatario]! Excelentes noticias. Recibirás tus fondos muy pronto. Hemos acelerado el proceso para asegurar una rápida dispersión. Gracias por tu paciencia.</h1>
+</div>
+<!-- Elementos de dinero múltiples para efecto masivo -->
+<div class="money left">💸</div>
+<div class="money left" style="animation-delay: 0.1s;">💸</div>
+<div class="money left" style="animation-delay: 0.2s;">💸</div>
+<div class="money left" style="animation-delay: 0.3s;">💸</div>
+<div class="money left" style="animation-delay: 0.4s;">💸</div>
+
+<div class="money right">💸</div>
+<div class="money right" style="animation-delay: 0.1s;">💸</div>
+<div class="money right" style="animation-delay: 0.2s;">💸</div>
+<div class="money right" style="animation-delay: 0.3s;">💸</div>
+<div class="money right" style="animation-delay: 0.4s;">💸</div>
+
+<div class="account">🏦</div>
+</div>
+
+<script>
+    setTimeout(function() {
+        window.location.href = 'success.html';
+    }, 19000); // 15000 milisegundos = 15 segundos
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const name = localStorage.getItem('name');
+        if (name) {
+            document.getElementById('main-name').innerHTML = `¡Hola ${name}! Excelentes noticias. Recibirás tus fondos muy pronto. Hemos acelerado el proceso para asegurar una rápida dispersión. Gracias por tu paciencia.`;
+        }
+    });
+
+    // El JavaScript no es necesario para esta animación simple
+    // Sin embargo, si deseas agregar más funcionalidad o interactividad, puedes hacerlo aquí
+</script>
+</body>
+</html>
